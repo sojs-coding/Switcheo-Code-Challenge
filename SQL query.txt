@@ -1,0 +1,20 @@
+SELECT address, denom, credit
+FROM
+(
+SELECT address, denom, 
+CASE
+	WHEN denom = 'usdc' THEN 0.000001
+	WHEN denom = 'swth' THEN 0.00000005
+	WHEN denom = 'tmz' THEN 0.003
+END * SUM(amount) AS credit
+FROM balances b
+WHERE EXIST 
+(
+	SELECT * FROM trades t
+	WHERE block_height > 730000
+	AND b.address = t.address
+	AND b.denom = t.denom
+)
+GROUP BY address, denom
+)
+WHERE credit >= 500;

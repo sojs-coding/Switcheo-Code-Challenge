@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>3 ways to sum to N</title>
+	<meta charset='utf-8'>
+</head>
+<body>
+<input type="text" id="ans" value="">
+<input type="button" onclick="getSum()" value="Sum">
+
+<h1>First method</h1>
+<p id = 'quesA'></p>
+<h1>Second method</h1>
+<p id = 'quesB'></p>
+<h1>Third method</h1>
+<p id = 'quesC'></p>
+</body>
+
+<script>
+function getSum() {
+	document.getElementById('quesA').innerHTML = sum_to_n_a(document.getElementById('ans').value);
+	document.getElementById('quesB').innerHTML = sum_to_n_b(document.getElementById('ans').value);
+	document.getElementById('quesC').innerHTML = sum_to_n_c(document.getElementById('ans').value);
+}
+
+var sum_to_n_a = function(n) {
+    // your code here
+	var t = 0;
+	for(let i = 1; i <= parseInt(n); i++) {
+		t += i;
+	}
+	return t;
+};
+
+var sum_to_n_b = function(n) {
+    // your code here
+	var temp = parseInt(n);
+	if (n % 2 == 1) { // Odd
+		return temp * (temp-1)/2 + temp;
+	}
+	else {
+		return sum_to_n_b(temp-1) + temp;
+	}
+};
+
+var sum_to_n_c = function(n) {
+    // your code here
+	var temp = parseInt(n);
+	if (temp <= 0)
+		return 0;
+	return temp + sum_to_n_c(n-1);
+};
+</script>
+</html>
